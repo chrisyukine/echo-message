@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Common;
+namespace App\Common\Tools;
 
 use Illuminate\Support\Arr;
-use Yurun\Util\HttpRequest;
 use Illuminate\Support\Facades\Log;
+use Yurun\Util\HttpRequest;
+use function app;
+use function config;
+use function env;
 
 /**
  * Request請求工具文件.
@@ -18,7 +21,7 @@ class RequestTools
         'timeout'       => 10 * 1000, //超时时间10s
         'content_type'  => 'json',    //请求格式
         'headers'       => ['Content-Type' => 'application/json;charset=UTF-8', 'Accept' => 'application/json'],
-        'is_log_result' => false,
+        'is_log_result' => true,
     ];
 
     /**
@@ -63,7 +66,7 @@ class RequestTools
      *
      * @return mixed
      */
-    public function post($url, array $params = [], array $headers = [], string $contentType = '', int $timeout = 0, $isLogResult = false, $cookies = [])
+    public function post(string $url, array $params = [], array $headers = [], string $contentType = '', int $timeout = 0, $isLogResult = false, $cookies = [])
     {
         $this->setMethod('post');
 
@@ -172,7 +175,7 @@ class RequestTools
      */
     public function setAppName(string $name = '')
     {
-        $this->configData['app_name']  = $name ?: env('APP_NAME', 'hlyun_v5_center');
+        $this->configData['app_name']  = $name ?: env('APP_NAME', 'local');
 
         return $this;
     }

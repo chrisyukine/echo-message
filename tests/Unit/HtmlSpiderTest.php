@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
+use App\Common\Tools\RequestTools;
 use Tests\TestCase;
-use App\Common\RequestTools;
 use voku\helper\HtmlDomParser;
 
 class HtmlSpiderTest extends TestCase
