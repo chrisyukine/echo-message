@@ -21,6 +21,6 @@ class WxWorkAccessToken
     public function getResult()
     {
         $res = RequestTools::make()->get($this->getUrl());
-        dump($res);
+
     }
 }
