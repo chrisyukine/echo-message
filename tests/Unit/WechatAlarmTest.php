@@ -11,6 +11,7 @@ class WechatAlarmTest extends TestCase
     public function testGetAccessToken()
     {
         $cls = new WxWorkAccessToken();
-        $cls->getResult();
+        $res = $cls->getData();
+        dump($res);
     }
 }
