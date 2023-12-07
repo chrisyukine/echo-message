@@ -2,12 +2,12 @@
 
 namespace App\Common\Tools;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
-use Yurun\Util\HttpRequest;
 use function app;
-use function config;
 use function env;
+use function config;
+use Illuminate\Support\Arr;
+use Yurun\Util\HttpRequest;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Request請求工具文件.
@@ -244,6 +244,7 @@ class RequestTools
      * 设置系统cookies [key=>val].
      *
      * @param array $cookies
+     *
      * @return RequestTools
      */
     public function setCookies(array $cookies)

@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
-use App\Common\Tools\RequestTools;
 use Tests\TestCase;
 use voku\helper\HtmlDomParser;
+use App\Common\Tools\RequestTools;
 
 class HtmlSpiderTest extends TestCase
 {
@@ -25,6 +25,7 @@ class HtmlSpiderTest extends TestCase
             $each                      = explode('=', $item);
             $cookieArr[trim($each[0])] = $each[1];
         }
+
         return $cookieArr;
     }
 }

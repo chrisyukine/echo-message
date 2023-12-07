@@ -12,7 +12,7 @@ abstract class BloomFilterHash
      */
     public function JSHash($string, $len = null)
     {
-        $hash = 1315423911;
+        $hash        = 1315423911;
         $len || $len = strlen($string);
         for ($i = 0; $i < $len; ++$i) {
             $hash ^= (($hash << 5) + ord($string[$i]) + ($hash >> 2));
@@ -28,18 +28,18 @@ abstract class BloomFilterHash
     public function PJWHash($string, $len = null)
     {
         $bitsInUnsignedInt = 4 * 8; //（unsigned int）（sizeof（unsigned int）* 8）;
-        $threeQuarters = ($bitsInUnsignedInt * 3) / 4;
-        $oneEighth = $bitsInUnsignedInt / 8;
-        $highBits = 0xFFFFFFFF << (int)($bitsInUnsignedInt - $oneEighth);
-        $hash = 0;
-        $test = 0;
-        $len || $len = strlen($string);
+        $threeQuarters     = ($bitsInUnsignedInt * 3) / 4;
+        $oneEighth         = $bitsInUnsignedInt       / 8;
+        $highBits          = 0xFFFFFFFF << (int) ($bitsInUnsignedInt - $oneEighth);
+        $hash              = 0;
+        $test              = 0;
+        $len || $len       = strlen($string);
         for ($i = 0; $i < $len; ++$i) {
-            $hash = ($hash << (int)($oneEighth)) + ord($string[$i]);
+            $hash = ($hash << (int) ($oneEighth)) + ord($string[$i]);
         }
         $test = $hash & $highBits;
         if (0 != $test) {
-            $hash = (($hash ^ ($test >> (int)($threeQuarters))) & (~$highBits));
+            $hash = (($hash ^ ($test >> (int) ($threeQuarters))) & (~$highBits));
         }
 
         return ($hash % 0xFFFFFFFF) & 0xFFFFFFFF;
@@ -50,11 +50,11 @@ abstract class BloomFilterHash
      */
     public function ELFHash($string, $len = null)
     {
-        $hash = 0;
+        $hash        = 0;
         $len || $len = strlen($string);
         for ($i = 0; $i < $len; ++$i) {
             $hash = ($hash << 4) + ord($string[$i]);
-            $x = $hash & 0xF0000000;
+            $x    = $hash & 0xF0000000;
             if (0 != $x) {
                 $hash ^= ($x >> 24);
             }
@@ -70,11 +70,11 @@ abstract class BloomFilterHash
      */
     public function BKDRHash($string, $len = null)
     {
-        $seed = 131;  // 31 131 1313 13131 131313 etc..
-        $hash = 0;
+        $seed        = 131;  // 31 131 1313 13131 131313 etc..
+        $hash        = 0;
         $len || $len = strlen($string);
         for ($i = 0; $i < $len; ++$i) {
-            $hash = (int)(($hash * $seed) + ord($string[$i]));
+            $hash = (int) (($hash * $seed) + ord($string[$i]));
         }
 
         return ($hash % 0xFFFFFFFF) & 0xFFFFFFFF;
@@ -86,10 +86,10 @@ abstract class BloomFilterHash
      */
     public function SDBMHash($string, $len = null)
     {
-        $hash = 0;
+        $hash        = 0;
         $len || $len = strlen($string);
         for ($i = 0; $i < $len; ++$i) {
-            $hash = (int)(ord($string[$i]) + ($hash << 6) + ($hash << 16) - $hash);
+            $hash = (int) (ord($string[$i]) + ($hash << 6) + ($hash << 16) - $hash);
         }
 
         return ($hash % 0xFFFFFFFF) & 0xFFFFFFFF;
@@ -101,10 +101,10 @@ abstract class BloomFilterHash
      */
     public function DJBHash($string, $len = null)
     {
-        $hash = 5381;
+        $hash        = 5381;
         $len || $len = strlen($string);
         for ($i = 0; $i < $len; ++$i) {
-            $hash = (int)(($hash << 5) + $hash) + ord($string[$i]);
+            $hash = (int) (($hash << 5) + $hash) + ord($string[$i]);
         }
 
         return ($hash % 0xFFFFFFFF) & 0xFFFFFFFF;
@@ -116,7 +116,7 @@ abstract class BloomFilterHash
     public function DEKHash($string, $len = null)
     {
         $len || $len = strlen($string);
-        $hash = $len;
+        $hash        = $len;
         for ($i = 0; $i < $len; ++$i) {
             $hash = (($hash << 5) ^ ($hash >> 27)) ^ ord($string[$i]);
         }
@@ -129,11 +129,11 @@ abstract class BloomFilterHash
      */
     public function FNVHash($string, $len = null)
     {
-        $prime = 16777619; //32位的prime 2^24 + 2^8 + 0x93 = 16777619
-        $hash = 2166136261; //32位的offset
+        $prime       = 16777619; //32位的prime 2^24 + 2^8 + 0x93 = 16777619
+        $hash        = 2166136261; //32位的offset
         $len || $len = strlen($string);
         for ($i = 0; $i < $len; ++$i) {
-            $hash = (int)($hash * $prime) % 0xFFFFFFFF;
+            $hash = (int) ($hash * $prime) % 0xFFFFFFFF;
             $hash ^= ord($string[$i]);
         }
 
