@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Http\Services\WxWorkMessage;
 
 use App\Common\Keys\RedisKey;
 use App\Common\Tools\RequestTools;
+use Illuminate\Support\Arr;
+use function redis;
 
-class WxWorkAccessToken
+class AccessTokenService
 {
     /**
      * 获取请求access_token地址
@@ -17,7 +19,7 @@ class WxWorkAccessToken
      */
     private function getUrl(string $copId = '', string $secret = ''): string
     {
-        return sprintf(config('wechat_message.wx_work.token_host'), $copId ?: config('wechat_message.wx_work.app.id'), $secret ?: config('wechat_message.wx_work.app.push_secret'));
+        return sprintf(config('wechat.wx_work.token_host'), $copId ?: config('wechat.wx_work.app.id'), $secret ?: config('wechat.wx_work.app.push_secret'));
     }
 
     /**
@@ -36,6 +38,6 @@ class WxWorkAccessToken
             redis()->expire(RedisKey::WX_WORK_ALARM_ACCESS_TOKEN, 7200);
         }
 
-        return $res['access_token'];
+        return Arr::get($res, 'access_token');
     }
 }

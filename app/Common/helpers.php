@@ -336,3 +336,26 @@ if (!function_exists('check_pdf')) {
         return false !== strpos($pdf, '%%EOF');
     }
 }
+
+if (!function_exists('throw_if_str')) {
+    /**
+     * throw_if增强.
+     *
+     * @param $condition
+     * @param $exception
+     * @param mixed ...$parameters
+     *
+     * @return bool
+     *
+     * @throws Throwable
+     */
+    function throw_if_str($condition, $exception, ...$parameters)
+    {
+        if (is_string($exception)) {
+            $message   = $exception;
+            $exception = new \Symfony\Component\HttpKernel\Exception\HttpException(200, $message);
+        }
+
+        return throw_if($condition, $exception, ...$parameters);
+    }
+}
