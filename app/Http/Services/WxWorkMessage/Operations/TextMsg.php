@@ -1,13 +1,24 @@
 <?php
+
 namespace App\Http\Services\WxWorkMessage\Operations;
 
+use App\Http\Services\WxWorkMessage\BaseSendMsg;
+use App\Http\Services\WxWorkMessage\Validation\TextMsgValidate;
 
-use App\Http\Services\WxWorkMessage\SendMsg;
-
-class TextMsg extends SendMsg
+class TextMsg extends BaseSendMsg
 {
-    protected function init()
-    {
-        $this->data['test'] = [];
-    }
+    /**
+     * 消息类型.
+     *
+     * @var string
+     */
+    protected string $msgType = 'text';
+
+    protected array $guardedValidate = [
+        TextMsgValidate::class,
+    ];
+
+    protected array $msgExtendFields = [
+        'text',
+    ];
 }
