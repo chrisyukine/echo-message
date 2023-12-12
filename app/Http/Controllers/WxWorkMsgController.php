@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Services\WxWorkMessage\Operations\TextMsg;
 
-class SendWxWorkMsg extends Controller
+class WxWorkMsgController extends Controller
 {
     public function sendMsg(Request $request)
     {

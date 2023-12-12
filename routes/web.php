@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('wechat')->group(function () {
+    Route::post('/work_send_msg', 'WxWorkMsgController@sendMsg'); //发送微信信息
+});
