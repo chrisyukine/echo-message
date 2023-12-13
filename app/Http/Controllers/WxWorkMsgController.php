@@ -12,10 +12,10 @@ class WxWorkMsgController extends Controller
         $this->validate(
             $request,
             [
-                'text' => 'required|string',
+                'content' => 'required|string',
             ],
             [
-                'text.*' => '内容不能为空',
+                'content.*' => '内容不能为空',
             ]
         );
 

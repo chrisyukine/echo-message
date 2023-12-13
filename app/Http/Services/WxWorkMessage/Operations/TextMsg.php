@@ -19,6 +19,6 @@ class TextMsg extends BaseSendMsg
     ];
 
     protected array $msgExtendFields = [
-        'text',
+        'content',
     ];
 }
