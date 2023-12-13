@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 use App\Common\Tools\RequestTools;
 use App\Http\Services\WxWorkMessage\BaseSendMsg;
@@ -24,14 +25,16 @@ class WechatAlarmTest extends TestCase
         dump($res);
     }
 
-    public function fixCode()
+    public function testFixCode()
     {
+        Log::info('test_Test', [1235413245123]);
     }
 
     public function testGetUserIds()
     {
-        $url = 'https://qyapi.weixin.qq.com/cgi-bin/user/list_id?access_token=' . (new AccessTokenService())->getData();
-        $res = RequestTools::make()->post($url);
-        dump($res);
+//        $url = 'https://qyapi.weixin.qq.com/cgi-bin/user/list_id?access_token=' . (new AccessTokenService())->getData();
+        $url = 'https://qyapi.weixin.qq.com/cgi-bin/user/list_id';
+        $res = RequestTools::make()->request('post', $url, ['name' => '111id', 'id' => '2202']);
+        dump($res->body());
     }
 }

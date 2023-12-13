@@ -115,7 +115,7 @@ class BaseSendMsg extends AbstractSendMsg
     {
         try {
             $url = sprintf(config('wechat.wx_work.msg_host'), (new AccessTokenService())->getData());
-            $res = RequestTools::make()->post($url, $this->data);
+            $res = RequestTools::make()->request('post', $url, $this->data);
             Log::info('request_info', ['url' => $url, 'data' => $this->data, 'res' => $res]);
         } catch (Exception $exception) {
             throw_if_str(true, '请求发送信息异常' . $exception->getMessage());

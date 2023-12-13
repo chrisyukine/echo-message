@@ -21,6 +21,6 @@ class WxWorkMsgController extends Controller
 
         $res  = TextMsg::with($request->all())->handle();
 
-        response()->json([$res], 200, [], JSON_UNESCAPED_UNICODE);
+        return response()->json(['send_result' => $res], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }

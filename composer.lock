@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cb0b33f4029062be50763f4afe6fdccf",
+    "content-hash": "ac33f95dfb5b502bb494967876a326af",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -1104,6 +1104,62 @@
                 "source": "https://github.com/paragonie/random_compat"
             },
             "time": "2020-10-15T08:29:30+00:00"
+        },
+        {
+            "name": "php-util-box/php-util-box",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tomselee/php-util-box.git",
+                "reference": "605c2d876fee9c7d574920af32ee5d4c9eda664f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tomselee/php-util-box/zipball/605c2d876fee9c7d574920af32ee5d4c9eda664f",
+                "reference": "605c2d876fee9c7d574920af32ee5d4c9eda664f",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "monolog/monolog": "^1.12",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "*",
+                "php": ">=7.0",
+                "phpunit/phpunit": "~6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "Tests\\": "tests/",
+                    "UtilBox\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "tomse",
+                    "email": "tomselee@qq.com"
+                }
+            ],
+            "description": "封装常用工具类或者方法",
+            "support": {
+                "issues": "https://github.com/tomselee/php-util-box/issues",
+                "source": "https://github.com/tomselee/php-util-box/tree/1.0.1"
+            },
+            "time": "2023-12-13T09:01:40+00:00"
         },
         {
             "name": "phpoption/phpoption",

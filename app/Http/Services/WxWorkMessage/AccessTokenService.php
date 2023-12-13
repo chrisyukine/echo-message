@@ -2,10 +2,10 @@
 
 namespace App\Http\Services\WxWorkMessage;
 
+use App\Common\Tools\RequestTools;
 use function redis;
 use Illuminate\Support\Arr;
 use App\Common\Keys\RedisKey;
-use App\Common\Tools\RequestTools;
 
 class AccessTokenService
 {
@@ -33,7 +33,7 @@ class AccessTokenService
         if ($cacheRes) {
             $res = json_decode($cacheRes, true);
         } else {
-            $res = RequestTools::make()->get($this->getUrl());
+            $res = RequestTools::make()->request('post', $this->getUrl(), );
             redis()->set(RedisKey::WX_WORK_ALARM_ACCESS_TOKEN, json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
             redis()->expire(RedisKey::WX_WORK_ALARM_ACCESS_TOKEN, 7200);
         }
