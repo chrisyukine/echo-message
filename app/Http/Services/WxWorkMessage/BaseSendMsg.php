@@ -2,10 +2,10 @@
 
 namespace App\Http\Services\WxWorkMessage;
 
-use Illuminate\Support\Facades\Log;
 use Mockery\Exception;
 use Illuminate\Support\Arr;
 use App\Common\Tools\RequestTools;
+use Illuminate\Support\Facades\Log;
 
 class BaseSendMsg extends AbstractSendMsg
 {
@@ -40,7 +40,7 @@ class BaseSendMsg extends AbstractSendMsg
         $this->init();
 
         //额外扩展数据（针对于不同模板的扩展方法）
-        $this->dataExtra();
+        $this->msgData();
 
         //校验数据
         $this->validate();
@@ -81,7 +81,12 @@ class BaseSendMsg extends AbstractSendMsg
         $this->data = Arr::only($this->data, array_merge(self::MSG_REQUIRED_FIELDS, $this->msgExtendFields));
     }
 
-    protected function dataExtra()
+    /**
+     * 构建需要扩展的信息数据.
+     *
+     * @return void
+     */
+    protected function msgData()
     {
     }
 

@@ -21,4 +21,9 @@ class TextMsg extends BaseSendMsg
     protected array $msgExtendFields = [
         'text',
     ];
+
+    protected function msgData()
+    {
+        $this->data['text'] = ['content' => $this->data['text']];
+    }
 }

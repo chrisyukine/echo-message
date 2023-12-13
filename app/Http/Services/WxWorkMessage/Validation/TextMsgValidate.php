@@ -17,7 +17,7 @@ class TextMsgValidate extends BaseValidate implements WxWorkAlarmValidationInter
         //必须字段校验
         $validator = Validator::make($pointer->data, [
             'msgtype' => [Rule::in(['text'])],
-            'text'    => 'required',
+            'text'    => 'required|array',
         ]);
 
         //字段格式校验
