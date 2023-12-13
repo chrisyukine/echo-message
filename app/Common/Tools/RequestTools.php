@@ -22,7 +22,7 @@ class RequestTools
     const DEFAULT_MAPPING = [
         'timeout'       => 10 * 1000, //超时时间10s
         'content_type'  => 'json',    //请求格式
-        'headers'       => ['Content-Type' => 'application/json;charset=UTF-8', 'Accept' => 'application/json'],
+        'headers'       => ['Content-Type' => 'application/json', 'Accept' => 'application/json'],
         'is_log_result' => true,
     ];
 
@@ -68,9 +68,20 @@ class RequestTools
 
         return $this;
     }
+    
+    public function get(){
+        
+    }
 
+    public function post($url, $data = [], $contentType = null)
+    {
+        $this->http->post($url, $data, $contentType);
+    }
+    
     public function request($method, $url, $data = [])
     {
+
+
         $startTime = microtime(true);
 
         try {
@@ -79,16 +90,12 @@ class RequestTools
 
             $requestHeaders = $this->headers;
 
-            $content = [];
+            $isJson = false;
             if ('application/json' === $this->getContentType()) {
-                $content['json'] = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-            } else {
-                $content['body'] = $data;
+                $isJson = true;
             }
 
-            $this->http->method($method)
-                ->url($url)
-                ->timeout($this->timeout)
+            $this->http->timeout($this->timeout)
                 ->headers($requestHeaders)
                 ->content($content);
 
@@ -96,7 +103,11 @@ class RequestTools
                 $this->http->cookies($this->cookies);
             }
 
-            $response = $this->http->send();
+            if($method == 'get') {
+                $this->get();
+            } else {
+                $this->post($url, $data, $isJson ? 'json' : '');
+            }
 
             $endTime  = microtime(true);
             $duration = $endTime - $startTime;
