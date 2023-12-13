@@ -33,7 +33,7 @@ class AccessTokenService
         if ($cacheRes) {
             $res = json_decode($cacheRes, true);
         } else {
-            $res = RequestTools::make()->request('post', $this->getUrl(), );
+            $res = RequestTools::make()->request('get', $this->getUrl());
             redis()->set(RedisKey::WX_WORK_ALARM_ACCESS_TOKEN, json_encode($res, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
             redis()->expire(RedisKey::WX_WORK_ALARM_ACCESS_TOKEN, 7200);
         }
