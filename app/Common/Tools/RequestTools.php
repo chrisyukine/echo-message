@@ -48,67 +48,36 @@ class RequestTools
         });
     }
 
-    public function setTimeout($timeout)
-    {
-        $this->timeout = $timeout;
-
-        return $this;
-    }
-
-    public function setHeaders($headers)
-    {
-        $this->headers = $headers;
-
-        return $this;
-    }
-
-    public function setCookies($cookies)
-    {
-        $this->cookies = $cookies;
-
-        return $this;
-    }
-    
-    public function get(){
-        
-    }
-
-    public function post($url, $data = [], $contentType = null)
-    {
-        $this->http->post($url, $data, $contentType);
-    }
-    
+    /**
+     * 发起请求.
+     *
+     * @param $method
+     * @param $url
+     * @param $data
+     * @return array|mixed|void
+     */
     public function request($method, $url, $data = [])
     {
-
-
         $startTime = microtime(true);
 
         try {
-            //设置完整请求头
+            //设置完整请求头以及超时时间、以及cookie
             $this->setHeaders(array_merge(self::DEFAULT_MAPPING['headers'], $this->headers));
-
             $requestHeaders = $this->headers;
+            $this->http
+                ->timeout($this->timeout)
+                ->headers($requestHeaders);
+            (!empty($this->cookies)) && $this->http->cookies($this->cookies);
 
-            $isJson = false;
-            if ('application/json' === $this->getContentType()) {
-                $isJson = true;
-            }
-
-            $this->http->timeout($this->timeout)
-                ->headers($requestHeaders)
-                ->content($content);
-
-            if (!empty($this->cookies)) {
-                $this->http->cookies($this->cookies);
-            }
-
-            if($method == 'get') {
-                $this->get();
+            //请求流程
+            if ('get' == $method) {
+                $response = $this->get($url);
             } else {
-                $this->post($url, $data, $isJson ? 'json' : '');
+                $isJson   = ('application/json' === $this->getContentType());
+                $response = $this->post($url, $data, $isJson ? 'json' : '');
             }
 
+            //请求时间
             $endTime  = microtime(true);
             $duration = $endTime - $startTime;
 
@@ -124,6 +93,62 @@ class RequestTools
         }
     }
 
+    /**
+     * @param $timeout
+     * @return $this
+     */
+    public function setTimeout($timeout)
+    {
+        $this->timeout = $timeout;
+
+        return $this;
+    }
+
+    /**
+     * @param $headers
+     * @return $this
+     */
+    public function setHeaders($headers)
+    {
+        $this->headers = $headers;
+
+        return $this;
+    }
+
+    /**
+     * @param $cookies
+     * @return $this
+     */
+    public function setCookies($cookies)
+    {
+        $this->cookies = $cookies;
+
+        return $this;
+    }
+
+    /**
+     * 发送GET请求.
+     *
+     * @return mixed|string
+     */
+    protected function get($url, $data = [])
+    {
+        return $this->http->get($url, $data);
+    }
+
+    /**
+     * 发送POST请求.
+     *
+     * @return mixed|string
+     */
+    protected function post($url, $data = [], $contentType = null)
+    {
+        return $this->http->post($url, $data, $contentType);
+    }
+
+    /**
+     * 记录日志.
+     */
     protected function logRequest($method, $url, $data, $response, $duration)
     {
         Log::info('Request', [
@@ -135,6 +160,11 @@ class RequestTools
         ]);
     }
 
+    /**
+     * 异常抛出.
+     *
+     * @return mixed|string
+     */
     protected function handleException($exception)
     {
         // 处理异常情况，例如记录日志、抛出自定义异常等
@@ -146,6 +176,11 @@ class RequestTools
         throw $exception;
     }
 
+    /**
+     * 获取请求格式.
+     *
+     * @return mixed|string
+     */
     protected function getContentType()
     {
         if (isset($this->headers['Content-Type'])) {
