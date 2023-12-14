@@ -18,10 +18,10 @@ Route::get('/', function () {
 });
 
 Route::prefix('wechat')->group(function () {
-    Route::post('/work_send_msg', 'WxWorkMsgController@sendMsg'); //发送微信信息
+    Route::post('work_send_msg', 'WxWorkMsgController@sendMsg'); //发送微信信息
 
     //任务抓取与推送
     Route::prefix('daily_push')->group(function () {
-        Route::get('/diff_message', 'DailyPushController@dailyDiffMessage');        //每日信息差
+        Route::get('diff_message', 'DailyPushController@dailyDiffMessage');        //每日信息差
     });
 });
