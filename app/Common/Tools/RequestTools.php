@@ -54,6 +54,7 @@ class RequestTools
      * @param $method
      * @param $url
      * @param $data
+     *
      * @return array|mixed|void
      */
     public function request($method, $url, $data = [])
@@ -95,6 +96,7 @@ class RequestTools
 
     /**
      * @param $timeout
+     *
      * @return $this
      */
     public function setTimeout($timeout)
@@ -106,6 +108,7 @@ class RequestTools
 
     /**
      * @param $headers
+     *
      * @return $this
      */
     public function setHeaders($headers)
@@ -117,6 +120,7 @@ class RequestTools
 
     /**
      * @param $cookies
+     *
      * @return $this
      */
     public function setCookies($cookies)

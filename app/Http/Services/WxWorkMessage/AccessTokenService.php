@@ -2,10 +2,10 @@
 
 namespace App\Http\Services\WxWorkMessage;
 
-use App\Common\Tools\RequestTools;
 use function redis;
 use Illuminate\Support\Arr;
 use App\Common\Keys\RedisKey;
+use App\Common\Tools\RequestTools;
 
 class AccessTokenService
 {
