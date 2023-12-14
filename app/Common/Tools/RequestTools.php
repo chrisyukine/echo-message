@@ -3,7 +3,9 @@
 namespace App\Common\Tools;
 
 use Yurun\Util\HttpRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Request請求工具文件.
@@ -53,12 +55,18 @@ class RequestTools
      *
      * @param $method
      * @param $url
-     * @param $data
+     * @param array $data
      *
      * @return array|mixed|void
      */
-    public function request($method, $url, $data = [])
+    public function request($method, $url, array $data = [])
     {
+        $this->validate([
+            'method' => $method,
+            'url'    => $url,
+            'data'   => $data,
+        ]);
+
         $startTime = microtime(true);
 
         try {
@@ -192,5 +200,21 @@ class RequestTools
         }
 
         return 'application/json';
+    }
+
+    private function validate($valData)
+    {
+        //必须字段校验
+        $validator = Validator::make($valData, [
+            'method'  => [Rule::in(['get', 'post', 'GET', 'POST'])],
+            'url'     => 'required|string|regex:/^http/',
+        ]);
+
+        //字段格式校验
+        if ($validator->fails()) {
+            $errors = $validator->errors()->first();
+            throw_if_str(true, '请求字段检验异常' . $errors . ':' . json_encode($valData, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+            throw new \Exception($errors);
+        }
     }
 }
