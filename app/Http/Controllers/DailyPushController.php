@@ -19,6 +19,6 @@ class DailyPushController extends Controller
     {
         $res = (new DailyDiffMessageWorker())->handle();
 
-        return response()->json(['send_result' => $res], 200, [], JSON_UNESCAPED_UNICODE);
+        return response()->json(['push_result' => $res], 200, [], JSON_UNESCAPED_UNICODE);
     }
 }
