@@ -2,10 +2,10 @@
 
 namespace App\Http\Services\WxWorkMessage\Operations;
 
-use App\Http\Services\WxWorkMessage\BaseSendMsg;
+use App\Http\Services\WxWorkMessage\BaseSendMsgService;
 use App\Http\Services\WxWorkMessage\Validation\TextMsgValidate;
 
-class TextMsg extends BaseSendMsg
+class TextMsg extends BaseSendMsgService
 {
     /**
      * 消息类型.

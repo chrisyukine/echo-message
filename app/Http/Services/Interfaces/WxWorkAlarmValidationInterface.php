@@ -2,9 +2,9 @@
 
 namespace App\Http\Services\Interfaces;
 
-use App\Http\Services\WxWorkMessage\AbstractSendMsg;
+use App\Http\Services\WxWorkMessage\AbstractSendMsgService;
 
 interface WxWorkAlarmValidationInterface
 {
-    public function validate(AbstractSendMsg $pointer);
+    public function validate(AbstractSendMsgService $pointer);
 }

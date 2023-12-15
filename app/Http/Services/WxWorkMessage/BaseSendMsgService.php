@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 use App\Common\Tools\RequestTools;
 use Illuminate\Support\Facades\Log;
 
-class BaseSendMsg extends AbstractSendMsg
+class BaseSendMsgService extends AbstractSendMsgService
 {
     //【参数说明】
     const DEFAULT_CONFIG_TO_USER    = '@all'; // 对应-touser  指定接收消息的成员，成员ID列表（多个接收者用‘|’分隔，最多支持1000个）。

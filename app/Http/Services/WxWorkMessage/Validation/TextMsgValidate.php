@@ -4,15 +4,15 @@ namespace App\Http\Services\WxWorkMessage\Validation;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Services\WxWorkMessage\AbstractSendMsg;
+use App\Http\Services\WxWorkMessage\AbstractSendMsgService;
 use App\Http\Services\Interfaces\WxWorkAlarmValidationInterface;
 
 class TextMsgValidate extends BaseValidate implements WxWorkAlarmValidationInterface
 {
     /**
-     * @param AbstractSendMsg $pointer
+     * @param AbstractSendMsgService $pointer
      */
-    public function validate(AbstractSendMsg $pointer)
+    public function validate(AbstractSendMsgService $pointer)
     {
         //必须字段校验
         $validator = Validator::make($pointer->data, [

@@ -4,7 +4,7 @@ namespace App\Http\Services\WxWorkMessage;
 
 use App\Http\Services\Interfaces\WxWorkAlarmValidationInterface;
 
-class AbstractSendMsg
+class AbstractSendMsgService
 {
     /**
      * 校验类.
@@ -23,7 +23,7 @@ class AbstractSendMsg
      *
      * @param static
      *
-     * @return AbstractSendMsg
+     * @return AbstractSendMsgService
      *
      * @throws \Throwable
      *
