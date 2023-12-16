@@ -22,6 +22,20 @@ class TextMsg extends BaseSendMsgService
         'text',
     ];
 
+    /**
+     * 初始化数据.
+     *
+     * @return void
+     */
+    protected function init()
+    {
+        parent::init();
+
+        if (isset($this->data['notice_type'])) {
+            $this->noticeType = $this->data['notice_type'];
+        }
+    }
+
     protected function msgData()
     {
         $this->data['text'] = ['content' => $this->data['text']];

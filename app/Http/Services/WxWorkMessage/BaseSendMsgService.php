@@ -31,6 +31,7 @@ class BaseSendMsgService extends AbstractSendMsgService
     ];
 
     protected string $msgType        = '';
+    protected string $noticeType     = 'app';
     protected array $guardedValidate = [];
     protected array $msgExtendFields = [];
 
@@ -66,7 +67,7 @@ class BaseSendMsgService extends AbstractSendMsgService
             'touser'                   => self::DEFAULT_CONFIG_TO_USER,
             'toparty'                  => self::DEFAULT_CONFIG_TO_PARTY,
             'totag'                    => self::DEFAULT_CONFIG_TO_TAG,
-            'agentid'                  => config('wechat.wx_work.app.push_agent_id'),
+            'agentid'                  => Arr::get(config('wechat.wx_work.' . $this->noticeType), 'push_agent_id'),
             'msgtype'                  => $this->msgType,
             'safe'                     => self::DEFAULT_CONFIG_SAFE,
             'enable_id_trans'          => self::DEFAULT_CONFIG_TRAN,
@@ -114,7 +115,7 @@ class BaseSendMsgService extends AbstractSendMsgService
     protected function sendMsg()
     {
         try {
-            $url = sprintf(config('wechat.wx_work.msg_host'), (new AccessTokenService())->getData());
+            $url = sprintf(config('wechat.wx_work.msg_host'), (new AccessTokenService($this->noticeType))->getData());
             $res = RequestTools::make()->request('post', $url, $this->data);
             Log::info('request_info', ['url' => $url, 'data' => $this->data, 'res' => $res]);
         } catch (Exception $exception) {
