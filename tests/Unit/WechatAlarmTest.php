@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Common\Tools\RequestTools;
 use Illuminate\Support\Facades\Log;
-use App\Http\Services\WxWorkMessage\BaseSendMsgService;
 use App\Http\Services\WxWorkMessage\AccessTokenService;
 use App\Http\Services\WxWorkMessage\Operations\TextMsg;
 

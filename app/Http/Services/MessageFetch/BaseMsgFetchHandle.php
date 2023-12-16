@@ -68,7 +68,7 @@ class BaseMsgFetchHandle
      *
      * @return void
      */
-    private function afterLogic()
+    protected function afterLogic()
     {
     }
 
