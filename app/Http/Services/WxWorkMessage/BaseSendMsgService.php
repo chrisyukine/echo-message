@@ -30,6 +30,15 @@ class BaseSendMsgService extends AbstractSendMsgService
         'MSG_TYPE'                  => 'msgtype',
     ];
 
+    /**
+     * 信息类型对应读取的配置项.
+     */
+    const MSG_TYPE_APP_CONFIG_MAPPING = [
+        'timing_fleece' => 'app',
+        'jd_cookie'     => 'app_warning',
+        'daily_toutiao' => 'app_warning',
+    ];
+
     protected string $msgType        = '';
     protected string $noticeType     = 'app';
     protected array $guardedValidate = [];

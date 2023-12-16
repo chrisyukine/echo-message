@@ -4,6 +4,7 @@ namespace App\Http\Services\WxWorkMessage\Operations;
 
 use App\Http\Services\WxWorkMessage\BaseSendMsgService;
 use App\Http\Services\WxWorkMessage\Validation\TextMsgValidate;
+use Illuminate\Support\Arr;
 
 class TextMsg extends BaseSendMsgService
 {
@@ -32,7 +33,7 @@ class TextMsg extends BaseSendMsgService
         parent::init();
 
         if (isset($this->data['notice_type'])) {
-            $this->noticeType = $this->data['notice_type'];
+            $this->noticeType = Arr::get(self::MSG_TYPE_APP_CONFIG_MAPPING, $this->data['notice_type'], $this->noticeType);
         }
     }
 
