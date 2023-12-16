@@ -5,6 +5,7 @@ namespace App\Http\Services\MessageFetch;
 use Mockery\Exception;
 use App\Common\Tools\RequestTools;
 use Illuminate\Support\Facades\Log;
+use App\Http\Services\WxWorkMessage\Operations\TextMsg;
 
 class BaseMsgFetchHandle
 {
@@ -86,7 +87,7 @@ class BaseMsgFetchHandle
         //todo::暂时不发送，调试ok再发送
         Log::info('push ok', ['text' => $content]);
 
-//        TextMsg::with(['text' => $content])->handle();
+        TextMsg::with(['text' => $content])->handle();
     }
 
     /**

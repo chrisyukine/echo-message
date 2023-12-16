@@ -17,7 +17,6 @@ class ToutiaoDiffMessageWorker extends BaseMsgFetchHandle
     //todo:3 解析数据，需要判断是否需要推送，调用推送方法 push
 
     protected string $url = "https://profile.zjurl.cn/api/feed_backflow/profile_share/v1/";
-//    protected string $url = "https://www.oeeee.com/api/m.php?m=m2&a=home";
 
     protected array $data = [
         "app_name" => "news_article",
@@ -29,6 +28,8 @@ class ToutiaoDiffMessageWorker extends BaseMsgFetchHandle
         "user_id" => 3371528454945292,
         "media_id" => 1782618843529216,
     ];
+
+    private String $txt = "";
 
     /**
      * 发送信息.
@@ -45,25 +46,24 @@ class ToutiaoDiffMessageWorker extends BaseMsgFetchHandle
                 if ($key > 5) break;
                 $content = json_decode($item["content"], true);
                 if ($content["article_type"] != 0) continue;
+                if(!$content["title"] && !$content["article_url"]) continue;
                 $keyword = sprintf("今日广州信息差 - %s", date("m月d日", time()));
                 // 若已推送，跳出
                 if (redis()->get(RedisKey::DIFF_MSG_YSF_TOUTIAO) == $keyword) break;
-                // 判断是否有当天线报
-//                if($content["title"] != $keyword) {
-//                    continue;
-//                }
-                $txt = $content["title"] . PHP_EOL . $content["article_url"];
-                $this->afterLogic($txt);
+                //判断是否有当天线报
+                if($content["title"] != $keyword) {
+                    continue;
+                }
+                $this->txt = $content["title"] . PHP_EOL . $content["article_url"];
                 redis()->set(RedisKey::DIFF_MSG_YSF_TOUTIAO, $keyword);
             }
-            exit;
         } catch (Exception $exception) {
             throw_if_str(true, '请求发送信息异常' . $exception->getMessage());
         }
     }
 
-    protected function afterLogic($txt)
+    protected function afterLogic()
     {
-        $this->pushToWxMsg($txt);
+        if(!empty($this->txt)) $this->pushToWxMsg($this->txt);
     }
 }
