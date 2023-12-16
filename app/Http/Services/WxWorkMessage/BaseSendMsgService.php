@@ -66,7 +66,7 @@ class BaseSendMsgService extends AbstractSendMsgService
      */
 
     /**
-     * 初始化方法，其它初始化都需继承，用于拼装默认参数.
+     * 初始化方法，其它初始化都需继承，用于拼装默认参数(包含过滤字段方法).
      *
      * @return void
      */
