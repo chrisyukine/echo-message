@@ -79,8 +79,8 @@ class RequestTools
             (!empty($this->cookies)) && $this->http->cookies($this->cookies);
 
             //请求流程
-            if ('get' == $method) {
-                $response = $this->get($url);
+            if ('get' == strtolower($method)) {
+                $response = $this->get($url, $data);
             } else {
                 $isJson   = ('application/json' === $this->getContentType());
                 $response = $this->post($url, $data, $isJson ? 'json' : '');
@@ -92,10 +92,8 @@ class RequestTools
 
             // 记录请求日志
             $this->logRequest($method, $url, $data, $response, $duration);
-
             $responseBody = $response->body();
-
-            return json_decode($responseBody) ?: [$responseBody];
+            return json_decode($responseBody, true) ?: [$responseBody];
         } catch (\Exception $e) {
             // 处理异常情况
             $this->handleException($e);
