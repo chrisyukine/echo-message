@@ -33,7 +33,7 @@ class ToutiaoDiffMessageDailyWorker extends ToutiaoDiffMessageWorker
         try {
             $this->fetchResult = RequestTools::make()->request($this->httpMethod, $this->url, $this->data);
             foreach ($this->fetchResult['data'] as $key => $item) {
-                if ($key > 5) {
+                if ($key > 2) {
                     break;
                 }
                 $content = json_decode($item['content'], true);
@@ -54,6 +54,7 @@ class ToutiaoDiffMessageDailyWorker extends ToutiaoDiffMessageWorker
                     );
 
                     redis()->set(RedisKey::DIFF_MSG_YSF_TOUTIAO_DAILY, $mat[1] . '_id');
+                    break;
                 }
             }
         } catch (Exception $exception) {
