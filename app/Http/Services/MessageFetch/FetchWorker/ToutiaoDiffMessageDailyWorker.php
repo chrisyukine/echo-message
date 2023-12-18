@@ -47,7 +47,11 @@ class ToutiaoDiffMessageDailyWorker extends ToutiaoDiffMessageWorker
                     if ($mat[1] . '_id' == redis()->get(RedisKey::DIFF_MSG_YSF_TOUTIAO_DAILY)) {
                         break;
                     }
-                    $this->txt = str_replace(['心跳回忆EMN：', '#挑战30天在头条写日记#'], '', $content['share']['share_title'] . PHP_EOL . $content['share']['share_url']);
+                    $this->txt = str_replace(
+                        ['心跳回忆EMN：', '#挑战30天在头条写日记#'],
+                        '',
+                        '【今日信息差】' . $content['share']['share_title'] . PHP_EOL . $content['share']['share_url']
+                    );
 
                     redis()->set(RedisKey::DIFF_MSG_YSF_TOUTIAO_DAILY, $mat[1] . '_id');
                 }
