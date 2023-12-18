@@ -93,6 +93,7 @@ class RequestTools
             // 记录请求日志
             $this->logRequest($method, $url, $data, $response, $duration);
             $responseBody = $response->body();
+
             return json_decode($responseBody, true) ?: [$responseBody];
         } catch (\Exception $e) {
             // 处理异常情况

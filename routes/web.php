@@ -21,7 +21,6 @@ Route::prefix('wechat')->group(function () {
     Route::post('work_send_msg', 'WxWorkMsgController@sendMsg'); //发送微信信息
 });
 
-
 Route::prefix('diff_msg')->group(function () {
     //任务抓取与推送
     Route::prefix('toutiao')->group(function () {
