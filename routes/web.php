@@ -26,5 +26,6 @@ Route::prefix('diff_msg')->group(function () {
     //任务抓取与推送
     Route::prefix('toutiao')->group(function () {
         Route::get('yeshifu', 'DailyPushController@toutiaoDiffMessage');
+        Route::get('xintiaohuiyi', 'DailyPushController@toutiaoDiffMessageDaily');
     });
 });
