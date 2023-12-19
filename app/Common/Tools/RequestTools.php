@@ -19,6 +19,7 @@ class RequestTools
     protected $cookies;
     protected $timeout = 10000; // 超时时间10s
     protected $headers = [];
+    protected $isLog   = true;
 
     //默认配置
     const DEFAULT_MAPPING = [
@@ -112,6 +113,17 @@ class RequestTools
 
         return $this;
     }
+    /**
+     * @param $isLog
+     *
+     * @return $this
+     */
+    public function setIsLog($value)
+    {
+        $this->isLog = $value;
+
+        return $this;
+    }
 
     /**
      * @param $headers
@@ -162,13 +174,15 @@ class RequestTools
      */
     protected function logRequest($method, $url, $data, $response, $duration)
     {
-        Log::info('Request', [
-            'method'   => $method,
-            'url'      => $url,
-            'data'     => $data,
-            'response' => $response->body(),
-            'duration' => $duration,
-        ]);
+        if ($this->isLog) {
+            Log::info('Request', [
+                'method'   => $method,
+                'url'      => $url,
+                'data'     => $data,
+                'response' => $response->body(),
+                'duration' => $duration,
+            ]);
+        }
     }
 
     /**

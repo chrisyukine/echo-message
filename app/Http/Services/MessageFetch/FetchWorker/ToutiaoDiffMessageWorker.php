@@ -34,7 +34,7 @@ class ToutiaoDiffMessageWorker extends BaseMsgFetchHandle
     protected function fetchUrlContent()
     {
         try {
-            $this->fetchResult = RequestTools::make()->request($this->httpMethod, $this->url, $this->data);
+            $this->fetchResult = RequestTools::make()->setIsLog(false)->request($this->httpMethod, $this->url, $this->data);
             foreach ($this->fetchResult['data'] as $key => $item) {
                 if ($key > 5) {
                     break;
