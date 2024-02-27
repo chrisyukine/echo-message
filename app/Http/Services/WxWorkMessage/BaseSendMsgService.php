@@ -36,7 +36,8 @@ class BaseSendMsgService extends AbstractSendMsgService
     const MSG_TYPE_APP_CONFIG_MAPPING = [
         'timing_fleece' => 'app',
         'jd_cookie'     => 'app_warning',
-        'daily_toutiao' => 'app_warning',
+        'daily_toutiao' => 'daily_news',
+        'daily_news'    => 'daily_news',
     ];
 
     protected string $msgType        = '';

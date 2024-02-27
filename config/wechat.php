@@ -18,5 +18,10 @@ return [
             'push_secret'   => env('WX_WORK_WARNING_DAILY_PUSH_SECRET', ''),
             'push_agent_id' => env('WX_WORK_WARNING_DAILY_PUSH_AGENTID', ''),
         ],
+        'daily_news'      => [
+            'id'            => env('WX_WORK_CORPID', ''),
+            'push_secret'   => env('WX_WORK_DAILY_NEWS_PUSH_SECRET', ''),
+            'push_agent_id' => env('WX_WORK_DAILY_NEWS_PUSH_AGENTID', ''),
+        ],
     ],
 ];
